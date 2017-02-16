@@ -155,7 +155,7 @@ namespace SimonGame
         }
         private void blueButton_Click(object sender, EventArgs e)
         {
-            handleClick("blue");
+            handleClick("blue"); 
         }
     }
 }
