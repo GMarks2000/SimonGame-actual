@@ -18,7 +18,25 @@ namespace SimonGame
         public GameScreen()
         {
             InitializeComponent();
+            
+            //initializes soundplayer array (can't be done in declaration)
+            soundPlayers.Add(new SoundPlayer(Properties.Resources.green));
+            soundPlayers.Add(new SoundPlayer(Properties.Resources.red));
+            soundPlayers.Add(new SoundPlayer(Properties.Resources.blue));
+            soundPlayers.Add(new SoundPlayer(Properties.Resources.yellow));
+
+            //initializes button array (can't be done in declaration)
+            buttons.Add(greenButton);
+            buttons.Add(redButton);
+            buttons.Add(blueButton);
+            buttons.Add(yellowButton);
+
         }
+        //defines lists for buttons, sounds, and colors
+        List<Button> buttons = new List<Button>();
+        List<SoundPlayer> soundPlayers = new List<SoundPlayer>();
+        List<Color> colors = new List<Color>(new Color[] { Color.LightGreen, Color.FromArgb(255, 100, 100), Color.LightBlue, Color.LightYellow });
+
         //tracks whether it is the player's turn
         bool isPlayerTurn = false;
 
@@ -27,16 +45,13 @@ namespace SimonGame
 
         //function for the computer's turn
         private void ComputerTurn()
-        {   
+        {           
             //randomly decides which color to add
             Random rand = new Random();
-            int colorIndicator = rand.Next(0, 4);
+            Form1.pattern.Add(rand.Next(0, 4));
 
-            //adds colors to array as appropriate
-            if (colorIndicator == 0) { Form1.pattern.Add("green"); }
-            else if (colorIndicator == 1) { Form1.pattern.Add("red"); }
-            else if (colorIndicator == 2) { Form1.pattern.Add("blue"); }
-            else { Form1.pattern.Add("yellow"); }
+            //updates round label
+            roundLabel.Text = "Round " + Form1.pattern.Count();
 
             for (int i = 0; i < Form1.pattern.Count(); i++)
             {
@@ -44,15 +59,37 @@ namespace SimonGame
                 handleButton(Form1.pattern[i]);
                 
                 //clears colors
-                handleButton("null");
+                handleButton(4);
             }
-            //resets guess number and resumes player turn
+
+           //resets guess number and resumes player turn
             isPlayerTurn = true;
             guess = 0;
         }
 
         private void GameScreen_Load(object sender, EventArgs e)
         {
+            //defines circular path for button to fill
+            GraphicsPath greenPath = new GraphicsPath();
+            greenPath.AddEllipse(5, 5, 190, 190);
+
+            //defines the region for the button component
+            Region buttonRegion = new Region(greenPath);
+            greenButton.Region = buttonRegion;
+
+            //defines matrix to rotate button region
+            Matrix transformMatrix = new Matrix();
+
+            //rotates matrix and defines component regions respectively as appropriate
+            rotateButtonRegion(transformMatrix, buttonRegion, redButton);
+            rotateButtonRegion(transformMatrix, buttonRegion, yellowButton);
+            rotateButtonRegion(transformMatrix, buttonRegion, blueButton);
+
+            //creates the region for the blocking central ellipse
+            GraphicsPath blockPath = new GraphicsPath();
+            blockPath.AddEllipse(5, 5, 170, 170);
+            roundLabel.Region = new Region(blockPath);
+
             //clears pattern, refreshes screen, and starts computer's turn
             Form1.pattern.Clear();
             Refresh();
@@ -61,7 +98,7 @@ namespace SimonGame
         }
 
         //function to determine which button to light and light that button as well as play a specific sound
-        private void handleButton(string color)
+        private void handleButton(int colorIndex)
         {
             //starts by resetting all button colors
             greenButton.BackColor = Color.Green;
@@ -69,40 +106,29 @@ namespace SimonGame
             blueButton.BackColor = Color.MediumBlue;
             yellowButton.BackColor = Color.Yellow;
 
-            //brightens button color as appropriate
-            if (color == "green") { greenButton.BackColor = Color.LightGreen; }
-            if (color == "red") { redButton.BackColor = Color.FromArgb(255, 100, 100); }
-            if (color == "blue") { blueButton.BackColor = Color.LightBlue; }
-            if (color == "yellow") { yellowButton.BackColor = Color.LightYellow; }
-
-            //Defines soundplayer to be used
-            SoundPlayer player = null;
-
-            //loads color-dependant sound as appropriate
-            if (color == "green") { player = new SoundPlayer(Properties.Resources.green); }
-            if (color == "red") { player = new SoundPlayer(Properties.Resources.red); }
-            if (color == "blue") { player = new SoundPlayer(Properties.Resources.blue); }
-            if (color == "yellow") { player = new SoundPlayer(Properties.Resources.yellow); }
-
-            //plays sound if the null command (used to simply clear the buttons) was not used
-            if (color != "null") { player.Play(); }
-
+            //only attempts to  access lists if null command (4, used to darken colors) was not used.
+            if (colorIndex != 4) {
+                 
+                //plays appropriate sound and brightens appropriate color
+                buttons[colorIndex].BackColor = colors[colorIndex];
+                soundPlayers[colorIndex].Play();
+            }
             Refresh();
             Thread.Sleep(300);
         }
 
         //function to handle player turn
-        private void handleClick(string color)
+        private void handleClick(int colorIndex)
         {   
             if (isPlayerTurn == true)
             {   
                 //if the button press is correct, lights button up. Otherwise, ends game.
-                if (Form1.pattern[guess] == color)
-                {
+                if (Form1.pattern[guess] == colorIndex)
+                {   
+                    //flashes color on and off
                     isPlayerTurn = false;
-                    handleButton(color);
-
-                    handleButton("null");
+                    handleButton(colorIndex);
+                    handleButton(4);
                     isPlayerTurn = true;
 
                     //increments guess number
@@ -140,22 +166,30 @@ namespace SimonGame
             f.Controls.Add(gos);
         }
 
+        //method to rotate the region of a simon button and redefine  its component region to fit the newly rotated region
+        private void rotateButtonRegion(Matrix transformMatrix, Region buttonRegion, Button button)
+        {
+            transformMatrix.RotateAt(90, new PointF(50, 50));
+            buttonRegion.Transform(transformMatrix);
+            button.Region = buttonRegion;
+        }
+
         //calls handleClick method with appropriate color when a button is clicked
         private void greenButton_Click(object sender, EventArgs e)
         {
-            handleClick("green");
+            handleClick(0);
         }
         private void redButton_Click(object sender, EventArgs e)
         {
-            handleClick("red");
-        }
-        private void yellowButton_Click(object sender, EventArgs e)
-        {
-            handleClick("yellow");
+            handleClick(1);
         }
         private void blueButton_Click(object sender, EventArgs e)
         {
-            handleClick("blue"); 
+            handleClick(2);
+        }
+        private void yellowButton_Click(object sender, EventArgs e)
+        {
+            handleClick(3);
         }
     }
 }

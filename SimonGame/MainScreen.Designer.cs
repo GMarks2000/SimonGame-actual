@@ -73,11 +73,12 @@
             // 
             this.titleLabel.AutoSize = true;
             this.titleLabel.BackColor = System.Drawing.Color.DimGray;
-            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleLabel.Font = new System.Drawing.Font("OCR A Extended", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.White;
-            this.titleLabel.Location = new System.Drawing.Point(-129, 227);
+            this.titleLabel.Image = global::SimonGame.Properties.Resources.whiteToBlack;
+            this.titleLabel.Location = new System.Drawing.Point(-269, 234);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(429, 73);
+            this.titleLabel.Size = new System.Drawing.Size(652, 66);
             this.titleLabel.TabIndex = 5;
             this.titleLabel.Text = "         SIMON  ";
             // 

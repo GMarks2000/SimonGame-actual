@@ -50,7 +50,7 @@
             this.scoreLabel.AutoSize = true;
             this.scoreLabel.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoreLabel.ForeColor = System.Drawing.Color.White;
-            this.scoreLabel.Location = new System.Drawing.Point(3, 121);
+            this.scoreLabel.Location = new System.Drawing.Point(15, 121);
             this.scoreLabel.Name = "scoreLabel";
             this.scoreLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.scoreLabel.Size = new System.Drawing.Size(258, 18);
@@ -60,6 +60,7 @@
             // closeButton
             // 
             this.closeButton.BackColor = System.Drawing.Color.Black;
+            this.closeButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.Location = new System.Drawing.Point(112, 174);
             this.closeButton.Name = "closeButton";
