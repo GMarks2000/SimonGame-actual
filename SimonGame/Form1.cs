@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+///created by Gareth Marks
+///on February 17 2017
+///to simulate a game of Simon
 namespace SimonGame
 {
     public partial class Form1 : Form
