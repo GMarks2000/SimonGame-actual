@@ -30,12 +30,11 @@ namespace SimonGame
             buttons.Add(redButton);
             buttons.Add(blueButton);
             buttons.Add(yellowButton);
-
         }
         //defines lists for buttons, sounds, and colors
         List<Button> buttons = new List<Button>();
         List<SoundPlayer> soundPlayers = new List<SoundPlayer>();
-        List<Color> colors = new List<Color>(new Color[] { Color.LightGreen, Color.FromArgb(255, 100, 100), Color.LightBlue, Color.LightYellow });
+        List<Color> colors = new List<Color>(new Color[] { Color.LightGreen, Color.FromArgb(255, 100, 100), Color.LightBlue, Color.LightYellow, Color.Green, Color.Red, Color.Blue, Color.Yellow });
 
         //tracks whether it is the player's turn
         bool isPlayerTurn = false;
@@ -100,11 +99,11 @@ namespace SimonGame
         //function to determine which button to light and light that button as well as play a specific sound
         private void handleButton(int colorIndex)
         {
-            //starts by resetting all button colors
-            greenButton.BackColor = Color.Green;
-            redButton.BackColor = Color.Red;
-            blueButton.BackColor = Color.MediumBlue;
-            yellowButton.BackColor = Color.Yellow;
+            //starts by resetting all button colors. Note that "default" colors are stored at an index four higher than their "brightened" variant for easy access.
+            for (int i = 0; i < buttons.Count(); i++)
+            {
+                buttons[i].BackColor = colors[i + 4];
+            }
 
             //only attempts to  access lists if null command (4, used to darken colors) was not used.
             if (colorIndex != 4) {
@@ -113,6 +112,7 @@ namespace SimonGame
                 buttons[colorIndex].BackColor = colors[colorIndex];
                 soundPlayers[colorIndex].Play();
             }
+
             Refresh();
             Thread.Sleep(300);
         }
@@ -156,6 +156,7 @@ namespace SimonGame
             SoundPlayer player = new SoundPlayer(Properties.Resources.mistake);
             player.Play();
 
+            //pauses for 1 second before showing game oover screen
             Thread.Sleep(1000);
 
             //closes screen and makes new game over screen appear
