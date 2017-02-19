@@ -75,7 +75,7 @@
             this.titleLabel.BackColor = System.Drawing.Color.DimGray;
             this.titleLabel.Font = new System.Drawing.Font("OCR A Extended", 48F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titleLabel.ForeColor = System.Drawing.Color.White;
-            this.titleLabel.Image = global::SimonGame.Properties.Resources.whiteToBlack;
+            this.titleLabel.Image = global::SimonGame.Properties.Resources.WhiteToBlack;
             this.titleLabel.Location = new System.Drawing.Point(-269, 234);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(652, 66);

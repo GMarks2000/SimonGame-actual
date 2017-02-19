@@ -99,20 +99,19 @@ namespace SimonGame
         //function to determine which button to light and light that button as well as play a specific sound
         private void handleButton(int colorIndex)
         {
-            //starts by resetting all button colors. Note that "default" colors are stored at an index four higher than their "brightened" variant for easy access.
+            //starts by resetting all button colors. Note that "default" colors are stored at an index four higher than their "brightened" variant for easy alternation.
             for (int i = 0; i < buttons.Count(); i++)
             {
                 buttons[i].BackColor = colors[i + 4];
             }
 
-            //only attempts to  access lists if null command (4, used to darken colors) was not used.
+            //only attempts to  access lists if null command (4, used to clear) was not used.
             if (colorIndex != 4) {
-                 
+                           
                 //plays appropriate sound and brightens appropriate color
                 buttons[colorIndex].BackColor = colors[colorIndex];
                 soundPlayers[colorIndex].Play();
             }
-
             Refresh();
             Thread.Sleep(300);
         }
@@ -125,7 +124,7 @@ namespace SimonGame
                 //if the button press is correct, lights button up. Otherwise, ends game.
                 if (Form1.pattern[guess] == colorIndex)
                 {   
-                    //flashes color on and off
+                    //flashes brightened button on and off
                     isPlayerTurn = false;
                     handleButton(colorIndex);
                     handleButton(4);
@@ -139,6 +138,7 @@ namespace SimonGame
                     {   
                         isPlayerTurn = false;
                         Thread.Sleep(500);
+
                         ComputerTurn();
                     }
                 }

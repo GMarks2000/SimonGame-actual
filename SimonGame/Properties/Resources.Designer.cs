@@ -109,9 +109,9 @@ namespace SimonGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap whiteToBlack {
+        internal static System.Drawing.Bitmap WhiteToBlack {
             get {
-                object obj = ResourceManager.GetObject("whiteToBlack", resourceCulture);
+                object obj = ResourceManager.GetObject("WhiteToBlack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
