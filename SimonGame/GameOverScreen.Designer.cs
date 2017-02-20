@@ -60,6 +60,8 @@
             // closeButton
             // 
             this.closeButton.BackColor = System.Drawing.Color.Black;
+            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Green;
             this.closeButton.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.Location = new System.Drawing.Point(112, 174);

@@ -55,10 +55,10 @@ namespace SimonGame
             for (int i = 0; i < Form1.pattern.Count(); i++)
             {
                 //calls method to light appropriate button and pauses for 1 s
-                handleButton(Form1.pattern[i]);
+                HandleButton(Form1.pattern[i]);
                 
                 //clears colors
-                handleButton(4);
+                HandleButton(4);
             }
 
            //resets guess number and resumes player turn
@@ -80,9 +80,9 @@ namespace SimonGame
             Matrix transformMatrix = new Matrix();
 
             //rotates matrix and defines component regions respectively as appropriate
-            rotateButtonRegion(transformMatrix, buttonRegion, redButton);
-            rotateButtonRegion(transformMatrix, buttonRegion, yellowButton);
-            rotateButtonRegion(transformMatrix, buttonRegion, blueButton);
+            RotateButtonRegion(transformMatrix, buttonRegion, redButton);
+            RotateButtonRegion(transformMatrix, buttonRegion, yellowButton);
+            RotateButtonRegion(transformMatrix, buttonRegion, blueButton);
 
             //creates the region for the blocking central ellipse
             GraphicsPath blockPath = new GraphicsPath();
@@ -97,7 +97,7 @@ namespace SimonGame
         }
 
         //function to determine which button to light and light that button as well as play a specific sound
-        private void handleButton(int colorIndex)
+        private void HandleButton(int colorIndex)
         {
             //starts by resetting all button colors. Note that "default" colors are stored at an index four higher than their "brightened" variant for easy alternation.
             for (int i = 0; i < buttons.Count(); i++)
@@ -117,7 +117,7 @@ namespace SimonGame
         }
 
         //function to handle player turn
-        private void handleClick(int colorIndex)
+        private void HandleClick(int colorIndex)
         {   
             if (isPlayerTurn == true)
             {   
@@ -126,8 +126,8 @@ namespace SimonGame
                 {   
                     //flashes brightened button on and off
                     isPlayerTurn = false;
-                    handleButton(colorIndex);
-                    handleButton(4);
+                    HandleButton(colorIndex);
+                    HandleButton(4);
                     isPlayerTurn = true;
 
                     //increments guess number
@@ -145,13 +145,13 @@ namespace SimonGame
                 //if the user presse the incorrect button, ends game.
                 else
                 {
-                    gameOver();
+                    GameOver();
                 }
             }
         } 
 
         //method to end game and go to game over screen
-        private void gameOver()
+        private void GameOver()
         {
             SoundPlayer player = new SoundPlayer(Properties.Resources.mistake);
             player.Play();
@@ -168,7 +168,7 @@ namespace SimonGame
         }
 
         //method to rotate the region of a simon button and redefine  its component region to fit the newly rotated region
-        private void rotateButtonRegion(Matrix transformMatrix, Region buttonRegion, Button button)
+        private void RotateButtonRegion(Matrix transformMatrix, Region buttonRegion, Button button)
         {
             transformMatrix.RotateAt(90, new PointF(50, 50));
             buttonRegion.Transform(transformMatrix);
@@ -178,19 +178,19 @@ namespace SimonGame
         //calls handleClick method with appropriate color when a button is clicked
         private void greenButton_Click(object sender, EventArgs e)
         {
-            handleClick(0);
+            HandleClick(0);
         }
         private void redButton_Click(object sender, EventArgs e)
         {
-            handleClick(1);
+            HandleClick(1);
         }
         private void blueButton_Click(object sender, EventArgs e)
         {
-            handleClick(2);
+            HandleClick(2);
         }
         private void yellowButton_Click(object sender, EventArgs e)
         {
-            handleClick(3);
+            HandleClick(3);
         }
     }
 }
