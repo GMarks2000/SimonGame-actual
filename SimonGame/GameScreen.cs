@@ -89,7 +89,7 @@ namespace SimonGame
             blockPath.AddEllipse(5, 5, 170, 170);
             roundLabel.Region = new Region(blockPath);
 
-            //clears pattern, refreshes screen, and starts computer's turn
+            //clears pattern, refreshes screen, and starts the computer's turn
             Form1.pattern.Clear();
             Refresh();
             Thread.Sleep(1000);
